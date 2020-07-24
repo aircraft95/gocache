@@ -1,6 +1,6 @@
 安装：
 ```
-go get gitlab.ghzs.com/liangyh/cache
+go get github.com/liangyouheng/gocache
 ```
 
 使用：
@@ -9,7 +9,7 @@ go get gitlab.ghzs.com/liangyh/cache
 package main
 
 import (
-  "gitlab.ghzs.com/liangyh/cache"
+  "github.com/liangyouheng/gocache"
   "fmt"
 )
 
@@ -30,7 +30,7 @@ ty是cache类型，支持lru simple
 package main
 
 import (
-  "gitlab.ghzs.com/liangyh/cache"
+  "github.com/liangyouheng/gocache"
   "fmt"
 )
 
