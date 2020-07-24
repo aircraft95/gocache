@@ -33,8 +33,10 @@ func (s *lruCacheShard) set(hashedKey uint32, value []byte,) {
 	if element, ok := s.items[hashedKey]; ok {
 		//如果存在，把该元素移到链表的最前方
 		s.list.MoveToFront(element)
-		//元素重新赋值value 必须使用引用的方式，否则无法修改值
+		//元素重新赋值value 说明一下断言struct必须使用引用指针的方式，否则得到的只是拷贝，无法修改值。
 		element.Value.(*lruItem).value = value
+		//上面的代码如果不使用断言的方式也可以使用 ：element.Value = &lruItem{hashedKey, value} 重新赋值的方式
+
 		s.lock.Unlock()
 		return
 	}
