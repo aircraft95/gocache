@@ -40,6 +40,63 @@ func BenchmarkCacheMap(b *testing.B) {
 	}
 }
 
+func BenchmarkCacheLru(b *testing.B) {
+	newCache := NewWithConfig(Config{
+		Ty: "lru",
+	})
+	for i := 0; i < b.N; i++ {
+		var wg sync.WaitGroup
+		for i := 0; i < NumOfWriter; i++ {
+			wg.Add(1)
+			go func() {
+				for i := 0; i < 100; i++ {
+					newCache.Set(key(i), []byte(value(i)))
+				}
+				wg.Done()
+			}()
+		}
+		for i := 0; i < NumOfReader; i++ {
+			wg.Add(1)
+			go func() {
+				for i := 0; i < 100; i++ {
+					newCache.Get(key(i))
+				}
+				wg.Done()
+			}()
+		}
+		wg.Wait()
+	}
+}
+
+func BenchmarkCacheByte(b *testing.B) {
+	newCache := NewWithConfig(Config{
+		Ty: "byte",
+	})
+	for i := 0; i < b.N; i++ {
+		var wg sync.WaitGroup
+		for i := 0; i < NumOfWriter; i++ {
+			wg.Add(1)
+			go func() {
+				for i := 0; i < 100; i++ {
+					newCache.Set(key(i), []byte(value(i)))
+				}
+				wg.Done()
+			}()
+		}
+		for i := 0; i < NumOfReader; i++ {
+			wg.Add(1)
+			go func() {
+				for i := 0; i < 100; i++ {
+					newCache.Get(key(i))
+				}
+				wg.Done()
+			}()
+		}
+		wg.Wait()
+	}
+}
+
+
 func BenchmarkBigCacheMap(b *testing.B) {
 	newCache := initBigCache(1000 * 10 * 60)
 	for i := 0; i < b.N; i++ {

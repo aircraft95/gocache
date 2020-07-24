@@ -4,6 +4,7 @@ go get github.com/liangyouheng/gocache
 ```
 
 使用：
+
 简单模式：
 ```go
 package main
@@ -25,7 +26,7 @@ func main() {
 ```
 
 配置模式：
-ty是cache类型，支持lru simple
+ty是cache类型，支持lru, byte, map
 ```go
 package main
 
@@ -48,4 +49,9 @@ func main() {
   }
   fmt.Println("Get:", string(value))
 }
+```
+
+bench 测试：
+```
+go test -bench=. -benchmem -benchtime=4s -cpu=8
 ```

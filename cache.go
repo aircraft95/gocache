@@ -20,7 +20,7 @@ func New() *cache {
 		ShardsNum:       shardsNum,
 		DefaultSize:     1000,
 		DefaultValueLen: 5000,
-		Ty: 		"simple",
+		Ty: 		"map",
 	}
 	c := new(cache)
 	c.shardsNum = config.ShardsNum
@@ -42,7 +42,7 @@ func NewWithConfig(config Config) *cache {
 	}
 
 	if config.Ty == "" {
-		config.Ty = "simple"
+		config.Ty = "map"
 	}
 
 	c := new(cache)
@@ -58,10 +58,12 @@ func (c *cache) initShard(config Config) *cache {
 		switch c.ty {
 		case "lru":
 			c.shards[i] = initNewLruShard(config)
-		case "simple":
-			c.shards[i] = initNewShard(config)
+		case "byte":
+			c.shards[i] = initNewByteShard(config)
+		case "map":
+			c.shards[i] = initNewMapShard(config)
 		default:
-			c.shards[i] = initNewShard(config)
+			c.shards[i] = initNewMapShard(config)
 		}
 	}
 	return c
