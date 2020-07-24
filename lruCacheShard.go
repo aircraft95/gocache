@@ -8,7 +8,7 @@ import (
 
 type lruCacheShard struct {
 	lock         sync.RWMutex
-	items     	 map[interface{}]*list.Element
+	items     	 map[uint32]*list.Element
 	list 		*list.List
 	maxSize      	 int
 }
@@ -20,7 +20,7 @@ type lruItem struct {
 
 func initNewLruShard(config Config) *lruCacheShard {
 	return &lruCacheShard{
-		items: make(map[interface{}]*list.Element),
+		items: make(map[uint32]*list.Element),
 		list: list.New(),
 		maxSize: config.DefaultSize,
 	}
