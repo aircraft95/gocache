@@ -3,9 +3,8 @@ package cache
 var shardsNum = 256
 
 type cache struct {
-	ty        string
 	shards 		[]shard
-	shardsNum	int
+	Config
 }
 
 type Config struct {
@@ -23,8 +22,7 @@ func New() *cache {
 		Ty: 		"map",
 	}
 	c := new(cache)
-	c.shardsNum = config.ShardsNum
-	c.ty = config.Ty
+	c.Config = config
 	return c.initShard(config)
 }
 
@@ -46,16 +44,15 @@ func NewWithConfig(config Config) *cache {
 	}
 
 	c := new(cache)
-	c.shardsNum = config.ShardsNum
-	c.ty = config.Ty
+	c.Config = config
 	return c.initShard(config)
 }
 
 
 func (c *cache) initShard(config Config) *cache {
-	c.shards = make([]shard, c.shardsNum)
-	for i := 0; i < c.shardsNum; i++ {
-		switch c.ty {
+	c.shards = make([]shard, c.ShardsNum)
+	for i := 0; i < c.ShardsNum; i++ {
+		switch c.Ty {
 		case "lru":
 			c.shards[i] = initNewLruShard(config)
 		case "byte":
@@ -70,7 +67,7 @@ func (c *cache) initShard(config Config) *cache {
 }
 
 func (c *cache) getShard(hashedKey uint32) shard {
-	return c.shards[hashedKey & uint32(c.shardsNum - 1)]
+	return c.shards[hashedKey & uint32(c.ShardsNum - 1)]
 }
 
 func (c *cache) Set(key string, value []byte) {
