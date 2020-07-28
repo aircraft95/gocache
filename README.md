@@ -1,6 +1,6 @@
 安装：
 ```
-go get github.com/liangyouheng/gocache
+go get -u github.com/liangyouheng/gocache
 ```
 
 使用：
@@ -10,8 +10,8 @@ go get github.com/liangyouheng/gocache
 package main
 
 import (
-  "github.com/liangyouheng/gocache"
-  "fmt"
+    "fmt"
+    "github.com/liangyouheng/gocache"
 )
 
 func main() {
@@ -26,13 +26,13 @@ func main() {
 ```
 
 配置模式：
-ty是cache类型，支持lru, byte, map
+Ty是cache类型，支持Lru, Byte, Map
 ```go
 package main
 
 import (
-  "github.com/liangyouheng/gocache"
-  "fmt"
+    "fmt"
+    "github.com/liangyouheng/gocache"
 )
 
 func main() {
@@ -40,7 +40,7 @@ func main() {
   		ShardsNum:       256,
   		DefaultSize:     1000,
   		DefaultValueLen: 5000,
-  		Ty: 		"lru",
+  		Ty: 		cache.Byte,
   	})
   c.Set("key", []byte("ok"))
   value, err := c.Get("key")

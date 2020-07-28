@@ -42,7 +42,7 @@ func BenchmarkCacheMap(b *testing.B) {
 
 func BenchmarkCacheLru(b *testing.B) {
 	newCache := NewWithConfig(Config{
-		Ty: "lru",
+		Ty: Lru,
 	})
 	for i := 0; i < b.N; i++ {
 		var wg sync.WaitGroup
@@ -70,7 +70,7 @@ func BenchmarkCacheLru(b *testing.B) {
 
 func BenchmarkCacheByte(b *testing.B) {
 	newCache := NewWithConfig(Config{
-		Ty: "byte",
+		Ty: Byte,
 	})
 	for i := 0; i < b.N; i++ {
 		var wg sync.WaitGroup
