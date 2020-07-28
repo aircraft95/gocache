@@ -13,15 +13,23 @@ type Config struct {
 	ShardsNum int
 	DefaultSize int
 	DefaultValueLen int
-	Fn     initShard
+	Ty     initShard
 }
+
+var (
+	Map = initNewMapShard
+ 	Lru = initNewLruShard
+ 	Byte = initNewByteShard
+)
+
+
 
 func New() *cache {
 	config := Config{
 		ShardsNum:       shardsNum,
 		DefaultSize:     1000,
 		DefaultValueLen: 5000,
-		Fn:        InitNewMapShard,
+		Ty:        Map,
 	}
 	c := new(cache)
 	c.Config = config
@@ -41,8 +49,8 @@ func NewWithConfig(config Config) *cache {
 		config.DefaultValueLen = 5000
 	}
 
-	if config.Fn == nil {
-		config.Fn = InitNewMapShard
+	if config.Ty == nil {
+		config.Ty = Map
 	}
 
 	c := new(cache)
@@ -54,7 +62,7 @@ func NewWithConfig(config Config) *cache {
 func (c *cache) initShard(config Config) *cache {
 	c.shards = make([]shard, c.ShardsNum)
 	for i := 0; i < c.ShardsNum; i++ {
-		c.shards[i] = c.Fn(config)
+		c.shards[i] = c.Ty(config)
 
 	}
 	return c

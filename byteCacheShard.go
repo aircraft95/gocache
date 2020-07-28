@@ -18,7 +18,7 @@ type byteCacheShard struct {
 	valueLen  int
 }
 
-func InitNewByteShard(config Config) shard {
+func initNewByteShard(config Config) shard {
 	return &byteCacheShard{
 		keyItems:        make(map[uint32]uint32),
 		valueItems:     make([]byte, config.DefaultValueLen),		//创建默认长度为defaultValueLen 的[]byte

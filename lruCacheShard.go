@@ -18,7 +18,7 @@ type lruItem struct {
 	value      []byte
 }
 
-func InitNewLruShard(config Config) shard {
+func initNewLruShard(config Config) shard {
 	return &lruCacheShard{
 		items: make(map[uint32]*list.Element),
 		list: list.New(),

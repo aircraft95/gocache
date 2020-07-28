@@ -10,7 +10,7 @@ type mapCache struct {
 	lock         sync.RWMutex
 }
 
-func InitNewMapShard(config Config) shard {
+func initNewMapShard(config Config) shard {
 	return &mapCache{
 		items:        make(map[uint32][]byte),
 	}
