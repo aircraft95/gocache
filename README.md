@@ -1,6 +1,6 @@
 安装：
 ```
-go get -u github.com/liangyouheng/gocache
+go get -u github.com/nobita95/gocache
 ```
 
 使用：
@@ -11,7 +11,7 @@ package main
 
 import (
     "fmt"
-    "github.com/liangyouheng/gocache"
+    "github.com/nobita95/gocache"
 )
 
 func main() {
@@ -32,7 +32,7 @@ package main
 
 import (
     "fmt"
-    "github.com/liangyouheng/gocache"
+    "github.com/nobita95/gocache"
 )
 
 func main() {
